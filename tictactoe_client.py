@@ -5,7 +5,7 @@ from Project1 import GameGUI_ui  # importing Created ui for manipulating and usi
 
 from Crypto.Cipher import AES  # This is for encrypting and decrypting data
 
-__author__ = "saman v"
+__author__ = "Reza Vasefi"
 
 """
 TicTacToe Game
@@ -20,7 +20,7 @@ __version__ = .85   # Version of the game
 """
 board = 0
 com_lis = [None] * 2  # create a list of 2 elements for data exchange
-turn = None  # global variables for storing conditions and turns
+turn = 1  # global variables for storing conditions and turns
 
 
 # The class that extends Qdialag and the ui file(GameGUI.py)
@@ -112,6 +112,7 @@ class TicTac(QDialog, GameGUI_ui.Ui_Game):
         global turn
         global board
         if turn == 1:
+            self.toolbut[i].setStyleSheet('color: #800000')
             self.toolbut[i].setText('x')
             position = i+1
             self.plainTextEdit_5.appendPlainText("Player X chose location "+str(position))
@@ -120,12 +121,15 @@ class TicTac(QDialog, GameGUI_ui.Ui_Game):
 
             self.toolbut[i].setDisabled(True)
             if self.win_check():
+                self.label_2.setStyleSheet('color: #800000')
                 self.label_2.setText("Congratulations! Player X Won the Game.")
                 self.plainTextEdit_5.appendPlainText("Player X Won the Game.")
                 for i in range(9):
                     self.toolbut[i].setDisabled(True)
 
         elif turn == -1:
+            self.toolbut[i].setStyleSheet('color: #004080')
+
             self.toolbut[i].setText('o')
             position = i+1
             self.plainTextEdit_5.appendPlainText("Player O chose location "+str(position))
@@ -134,6 +138,7 @@ class TicTac(QDialog, GameGUI_ui.Ui_Game):
 
             self.toolbut[i].setDisabled(True)
             if self.win_check():
+                self.label_2.setStyleSheet('color: #004080')
                 self.label_2.setText("Congratulations! Player O Won the Game.")
                 self.plainTextEdit_5.appendPlainText("Player O Won the Game.")
                 for i in range(9):
@@ -169,8 +174,10 @@ class TicTac(QDialog, GameGUI_ui.Ui_Game):
             self.toolbut[i].setText("")
             self.toolbut[i].setEnabled(True)
             self.plainTextEdit_5.clear()
-            self.label_2.setText('Welcome, Please Start')   # Initial text for Qlabel
 
+            self.label_2.setText('Welcome, Please Start')   # Initial text for Qlabel
+            self.label_2.setStyleSheet('color: black')
+    # =======================not completed must remove redundant : from text==================================
     # This methods first checks for if data is encrypted or not then pars the receive data and call proper methods
     def receive_parser(self):
         global turn
